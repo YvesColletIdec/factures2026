@@ -8,6 +8,7 @@ public partial class SqlServerContext : DbContext
 {
     public SqlServerContext()
     {
+        Console.WriteLine("coucou");
     }
 
     public SqlServerContext(DbContextOptions<SqlServerContext> options)
