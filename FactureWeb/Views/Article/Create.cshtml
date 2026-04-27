@@ -1,0 +1,15 @@
+﻿@using FactureEntities.Entities
+@model Article
+<h1>Créer un nouvel Article</h1>
+<form asp-controller="Article" asp-action="Create" method="post">
+<label>Nom</label>
+<input asp-for="Nom" /><br/>
+<span asp-validation-for="Nom" class="text-danger"></span>
+<label>Description</label>
+<input asp-for="Description" />
+<br />
+<label>Prix</label>
+<input asp-for="Prix" />
+<br />
+<input type="submit" value="Sauver"/>
+</form>

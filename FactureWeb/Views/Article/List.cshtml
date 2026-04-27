@@ -1,0 +1,30 @@
+﻿@using FactureEntities.Entities;
+@*Model*@
+@model List<Article>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    
+}
+<a asp-controller="Article" asp-action="Create" class="btn btn-primary">Ajouter un nouvel Article</a>
+<h1>Liste des articles</h1>
+<table class ="table table-striped">
+    <thead>
+        <tr>
+            <td scope="col">N°</td>
+            <td scope="col">Nom</td>
+            <td scope="col">Prix</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Article a in Model)
+        {
+            <tr>
+                <td scope="col">@a.Id</td>
+                <td>@a.Nom</td>
+                <td>@a.Prix</td>
+            </tr>
+        }
+    </tbody>
+</table>

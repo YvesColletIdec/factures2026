@@ -6,11 +6,13 @@ namespace FactureWeb.Controllers
 {
     public class HomeController : Controller
     {
+        //https://localhost:1234/Home/Index
         public IActionResult Index()
         {
+            //Views/Home/Index.cshtml
             return View();
         }
-
+        //https://localhost:1234/Home/Privacy
         public IActionResult Privacy()
         {
             return View();

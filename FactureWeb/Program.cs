@@ -1,3 +1,5 @@
+using FactureEntities.Entities;
+
 namespace FactureWeb
 {
     public class Program
@@ -8,7 +10,8 @@ namespace FactureWeb
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            //var x = new SqlServerContext();
+            builder.Services.AddDbContextFactory<SqlServerContext>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
