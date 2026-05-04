@@ -15,7 +15,7 @@ public partial class LigneFacture
 
     public decimal PrixUnitaire { get; set; }
 
-    public virtual Article Article { get; set; } = null!;
+    public virtual Article Article { get; set; }
 
-    public virtual Facture Facture { get; set; } = null!;
+    public virtual Facture Facture { get; set; }
 }

@@ -1,0 +1,1 @@
+﻿dotnet-ef dbcontext scaffold "Server=localhost,1433;user id=sa;password=Id€c2o25++;database=Facture2026;TrustServerCertificate=True;" "Microsoft.EntityFrameworkCore.SqlServer" -p FactureEntities -f -o Entities -c SqlServerContext

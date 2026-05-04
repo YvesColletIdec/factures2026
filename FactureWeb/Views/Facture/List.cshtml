@@ -1,0 +1,24 @@
+﻿@using FactureEntities.Entities;
+@*Model*@
+@model List<Facture>
+<a asp-controller="Facture" asp-action="Create" class="btn btn-primary">Ajouter une nouvelle Facture</a>
+<h1>Liste des articles</h1>
+<table id ="tableFacture" class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Date</th>
+            <th scope="col">Client</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Facture f in Model)
+        {
+            <tr>
+                <td scope="col">@f.Id</td>
+                <td>@f.DateFacture</td>
+                <td align="right">@f.Client.Nom</td>
+            </tr>
+        }
+    </tbody>
+</table>

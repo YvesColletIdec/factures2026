@@ -8,7 +8,6 @@ public partial class SqlServerContext : DbContext
 {
     public SqlServerContext()
     {
-        Console.WriteLine("coucou");
     }
 
     public SqlServerContext(DbContextOptions<SqlServerContext> options)
@@ -38,11 +37,13 @@ public partial class SqlServerContext : DbContext
 
             entity.ToTable("Article");
 
+            entity.Property(e => e.Actif).HasDefaultValue(true);
             entity.Property(e => e.Description)
                 .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasDefaultValue("-");
             entity.Property(e => e.Nom)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasDefaultValue("-");
@@ -59,10 +60,15 @@ public partial class SqlServerContext : DbContext
 
             entity.HasIndex(e => e.Id, "UQ__Client__3214EC061C32BF4C").IsUnique();
 
+            entity.Property(e => e.Adresse).IsRequired();
+            entity.Property(e => e.Localite).IsRequired();
             entity.Property(e => e.Nom)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasDefaultValue("...");
+            entity.Property(e => e.Npa).IsRequired();
+            entity.Property(e => e.Prenom).IsRequired();
         });
 
         modelBuilder.Entity<Facture>(entity =>
@@ -72,6 +78,8 @@ public partial class SqlServerContext : DbContext
             entity.ToTable("Facture");
 
             entity.HasIndex(e => e.Id, "UQ__Facture__3214EC06DEA08855").IsUnique();
+
+            entity.Property(e => e.Numero).IsRequired();
 
             entity.HasOne(d => d.Client).WithMany(p => p.Factures)
                 .HasForeignKey(d => d.ClientId)
@@ -112,6 +120,11 @@ public partial class SqlServerContext : DbContext
             entity.ToTable("Vendeur");
 
             entity.HasIndex(e => e.Id, "UQ__Vendeur__3214EC06C5E83CBE").IsUnique();
+
+            entity.Property(e => e.Identifiant).IsRequired();
+            entity.Property(e => e.MotDePasse).IsRequired();
+            entity.Property(e => e.Nom).IsRequired();
+            entity.Property(e => e.Prenom).IsRequired();
         });
 
         OnModelCreatingPartial(modelBuilder);

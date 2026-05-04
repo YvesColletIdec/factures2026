@@ -1,20 +1,63 @@
-﻿@using FactureEntities.Entities;
+﻿<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    /* Personnalisation des icônes de tri */
+    th.sorting:after, th.sorting_asc:after, th.sorting_desc:after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-left: 5px;
+    }
+
+    th.sorting:after {
+    content: "\f0dc"; /* Icône tri non activé (barres) */
+    }
+
+    th.sorting_asc:after {
+    content: "\f0de"; /* Flèche haut */
+    }
+
+    th.sorting_desc:after {
+    content: "\f0dd"; /* Flèche bas */
+    }
+    /* Ajustement des largeurs de colonnes */
+    th, td {
+    white-space: nowrap;
+    }
+
+    th:nth-child(1), td:nth-child(1) {
+    min-width: 100px;
+    }
+
+    th:nth-child(2), td:nth-child(2) {
+    width: 100%;
+    }
+
+    th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6), th:nth-child(7), th:nth-child(8),
+    td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7), td:nth-child(8) {
+    width: 1%;
+    }
+    /* Alignement à droite pour la 3ème colonne */
+    th:nth-child(3), td:nth-child(3) {
+    text-align: right;
+    }
+</style>
+
+@using FactureEntities.Entities;
 @*Model*@
 @model List<Article>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-    
-}
 <a asp-controller="Article" asp-action="Create" class="btn btn-primary">Ajouter un nouvel Article</a>
 <h1>Liste des articles</h1>
-<table class ="table table-striped">
+<table id ="tableArticles" class="table table-striped table-sm">
     <thead>
         <tr>
-            <td scope="col">N°</td>
-            <td scope="col">Nom</td>
-            <td scope="col">Prix</td>
+            <th scope="col">N°</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prix</th>
         </tr>
     </thead>
     <tbody>
@@ -22,9 +65,46 @@
         {
             <tr>
                 <td scope="col">@a.Id</td>
-                <td>@a.Nom</td>
-                <td>@a.Prix</td>
+                <td><a asp-controller="Article" asp-action="Edit" asp-route-id="@a.Id">@a.Nom</a></td>
+                <td align="right">@a.Prix</td>
             </tr>
         }
     </tbody>
 </table>
+<script>
+    $(document).ready(function () {
+    var table = $('#tableArticles').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "pageLength": 5,
+    "ordering": true,
+    "order": [],
+    "columnDefs": [
+    { "orderable": false, "targets": [2, 3, 4, 5] },
+    { "orderable": true, "targets": [0, 1] }
+    ],
+    "language": {
+    "search": "", // Champ de recherche personnalisé
+    "paginate": {
+    "previous": "Précédent",
+    "next": "Suivant"
+    },
+    "info": "_START_ à _END_ entrée(s) sur _TOTAL_ au total",
+    "infoEmpty" : "Aucune entrée",
+    "infoFiltered": "(filtré de _MAX_ entrées au total)",
+    "zeroRecords": "Aucun enregistrement trouvé",
+    },
+    "dom": "<'row'<'col-md-6'l><'col-md-6 d-flex justify-content-end mb-3'f>>" +
+    "<'row'<'col-sm-12'tr>>" +
+    "<'row'<'col-md-6'i><'col-md-6 d-flex justify-content-end'p>>",
+    "initComplete": function () {
+    $(".dataTables_filter input")
+    .attr("placeholder", "Rechercher...")
+    .addClass("form-control");
+    }
+    });
+    $('#search').on('keyup', function () {
+    table.search(this.value).draw();
+    });
+    });
+</script>

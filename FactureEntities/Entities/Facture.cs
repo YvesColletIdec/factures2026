@@ -9,15 +9,15 @@ public partial class Facture
 
     public DateOnly DateFacture { get; set; }
 
-    public string Numero { get; set; } = null!;
+    public string Numero { get; set; }
 
     public int ClientId { get; set; }
 
     public int VendeurId { get; set; }
 
-    public virtual Client Client { get; set; } = null!;
+    public virtual Client Client { get; set; }
 
     public virtual ICollection<LigneFacture> LigneFactures { get; set; } = new List<LigneFacture>();
 
-    public virtual Vendeur Vendeur { get; set; } = null!;
+    public virtual Vendeur Vendeur { get; set; }
 }
