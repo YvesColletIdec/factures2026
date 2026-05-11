@@ -1,0 +1,14 @@
+﻿@using FactureEntities.Entities
+@model Facture
+@{
+    List<SelectListItem> liste = ViewBag.clients;
+}
+<h1>Modifier la facture num @Model.Id</h1>
+<form asp-controller="Facture" asp-action="Edit" method="post">
+    <label asp-for="Id"></label>
+    <input asp-for="Id" type="text" readonly="readonly" class="form-control"/>
+    
+    <label asp-for="Client"></label>
+    <select asp-for="ClientId" asp-items="liste"></select>
+    <input type="submit" value="Sauver" class="btn btn-sm btn-primary" />
+</form>

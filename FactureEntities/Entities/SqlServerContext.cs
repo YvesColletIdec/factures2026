@@ -23,6 +23,8 @@ public partial class SqlServerContext : DbContext
 
     public virtual DbSet<LigneFacture> LigneFactures { get; set; }
 
+    public virtual DbSet<VFacture> VFactures { get; set; }
+
     public virtual DbSet<Vendeur> Vendeurs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -111,6 +113,20 @@ public partial class SqlServerContext : DbContext
                 .HasForeignKey(d => d.FactureId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("LigneFacture_fk1");
+        });
+
+        modelBuilder.Entity<VFacture>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("V_Facture");
+
+            entity.Property(e => e.Nom)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Prenom).IsRequired();
+            entity.Property(e => e.PrixUnitaire).HasColumnType("decimal(18, 0)");
         });
 
         modelBuilder.Entity<Vendeur>(entity =>
