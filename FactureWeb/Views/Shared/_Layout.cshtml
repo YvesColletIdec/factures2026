@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,6 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <partial name="Message" />
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -31,6 +33,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Facture" asp-action="List">Liste Des Factures</a>
                         </li>
+                        @if (HttpContextAccessor.HttpContext.Session.GetString("role") == "admin")
+                        {
+                            <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">Se déconnecter (Bonjour @HttpContextAccessor.HttpContext.Session.GetString("userName"))</a>
+                                </li>
+                        }
+
                     </ul>
                 </div>
             </div>

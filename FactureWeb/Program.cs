@@ -1,4 +1,5 @@
 using FactureEntities.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace FactureWeb
 {
@@ -12,6 +13,19 @@ namespace FactureWeb
             builder.Services.AddControllersWithViews();
             //var x = new SqlServerContext();
             builder.Services.AddDbContextFactory<SqlServerContext>();
+
+
+            builder.Services.AddSession();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "/Login/Login";
+                options.AccessDeniedPath = "/Home/AccessDenied";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+            });
+            builder.Services.AddHttpContextAccessor();
+
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -25,7 +39,10 @@ namespace FactureWeb
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
+
 
             app.MapStaticAssets();
             app.MapControllerRoute(

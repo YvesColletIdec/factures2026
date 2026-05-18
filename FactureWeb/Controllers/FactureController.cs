@@ -1,10 +1,12 @@
 ﻿using FactureEntities.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace FactureWeb.Controllers
 {
+    [Authorize]
     public class FactureController : Controller
     {
         private SqlServerContext _context;

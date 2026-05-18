@@ -1,0 +1,41 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Connexion</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <form method="post" asp-controller="Login" asp-action="Connexion">
+        <section class="vh-100" style="background-color: #508bfc;">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                            <div class="card-body p-5 text-center">
+
+                                <h3 class="mb-5">Connexion</h3>
+
+                                <div class="form-outline mb-4">
+                                    <input type="text" name="utilisateur" class="form-control" placeholder="Utilisateur" required />
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="password" name="motdepasse" class="form-control" placeholder="Mot de passe" required />
+                                </div>
+
+                                <button class="btn btn-primary" type="submit">Se Connecter</button>
+                                <partial name="Message" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</body>
+</html>
