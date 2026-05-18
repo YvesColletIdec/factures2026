@@ -141,6 +141,9 @@ public partial class SqlServerContext : DbContext
             entity.Property(e => e.MotDePasse).IsRequired();
             entity.Property(e => e.Nom).IsRequired();
             entity.Property(e => e.Prenom).IsRequired();
+            entity.Property(e => e.Role)
+                .IsRequired()
+                .HasDefaultValue("user");
         });
 
         OnModelCreatingPartial(modelBuilder);

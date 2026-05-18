@@ -15,5 +15,7 @@ public partial class Vendeur
 
     public string Identifiant { get; set; }
 
+    public string Role { get; set; }
+
     public virtual ICollection<Facture> Factures { get; set; } = new List<Facture>();
 }

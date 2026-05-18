@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FactureWeb.Controllers
 {
-    [Authorize]
+    
     public class ArticleController : Controller
     {
         private SqlServerContext _context;
@@ -22,12 +22,14 @@ namespace FactureWeb.Controllers
             return View(liste);
         }
 
+        [Authorize(Roles ="admin")]
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Create(Article a)
         {
@@ -43,6 +45,7 @@ namespace FactureWeb.Controllers
             
         }
 
+        [Authorize(Roles = "admin, user")]
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -55,6 +58,7 @@ namespace FactureWeb.Controllers
             return View(art);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Edit(Article a)
         {

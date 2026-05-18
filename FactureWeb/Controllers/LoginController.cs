@@ -46,15 +46,7 @@ public class LoginController : Controller
             TempData["ko"] = "Echec de lors de la connexion";
             return Redirect("~/Login/Login");
         }
-        string claimRole = "";
-        if (u.Identifiant == "admin")
-        {
-            claimRole = "admin";
-        } else
-        {
-            claimRole = "user";
-        }
-        
+        string claimRole = u.Role;
 
         var userClaims = new[] {
                         new Claim("Login", utilisateur),
@@ -72,7 +64,7 @@ public class LoginController : Controller
 
         HttpContext.Session.SetString("id", Convert.ToString(u.Id));
         HttpContext.Session.SetString("userName", utilisateur);
-        HttpContext.Session.SetString("role", "admin");
+        HttpContext.Session.SetString("role", u.Role);
         TempData["ok"] = $"Bienvenue {utilisateur}";
         return Redirect("/Home/Index");
     }

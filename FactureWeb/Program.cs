@@ -16,7 +16,9 @@ namespace FactureWeb
 
 
             builder.Services.AddSession();
-            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            builder.Services.AddAuthentication(
+                CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
             {
                 options.LoginPath = "/Login/Login";
                 options.AccessDeniedPath = "/Home/AccessDenied";
