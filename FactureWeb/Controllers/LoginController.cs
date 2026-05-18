@@ -1,4 +1,5 @@
 ﻿using FactureEntities.Entities;
+using Helpers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,9 @@ public class LoginController : Controller
         Vendeur u = _context.Vendeurs.FirstOrDefault(ux => ux.Identifiant == utilisateur);
         if (u != null)
         {
-            if (motdepasse != u.MotDePasse)
+            //if (motdepasse != u.MotDePasse)
+            //bool ok = Security.Verify(mdp, mdpChiffre);
+            if (!Security.Verify(motdepasse, u.MotDePasse))
             {
                 u = null;
             }

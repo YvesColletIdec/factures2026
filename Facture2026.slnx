@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="FactureEntities/FactureEntities.csproj" />
+  <Project Path="FactureTest/FactureTest.csproj" Id="20ee9e8d-fc94-4eb2-8bac-ae326d10c0ab" />
   <Project Path="FactureWeb/FactureWeb.csproj" Id="a03ec330-4bc5-41ca-89e5-d9efeeae883d" />
 </Solution>
