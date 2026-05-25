@@ -1,8 +1,11 @@
 ﻿using FactureEntities.Entities;
+using FactureWeb.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Drawing;
 
 namespace FactureWeb.Controllers
 {
@@ -21,6 +24,37 @@ namespace FactureWeb.Controllers
                 .Include(f => f.LigneFactures).ThenInclude(lf => lf.Article).ToList();
             return View(liste);
         }
+
+        public bool CreateNewFacture(List<LigneFacture> LignesFacture, DateTime DateFacture, int ClientId, string Numero)
+        {
+            Facture facture = new Facture();
+            facture.DateFacture = DateOnly.FromDateTime(DateFacture);
+            facture.ClientId = ClientId;
+            facture.LigneFactures = LignesFacture;
+            facture.Numero = Numero;
+            facture.VendeurId = Convert.ToInt32(User.FindFirst("id")?.Value);
+            _context.Add(facture);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public IActionResult Create()
+        {
+            //création de la liste des clients
+            List<SelectListItem> listClients = new List<SelectListItem>();
+            foreach (Client c in _context.Clients)
+            {
+                listClients.Add(new SelectListItem() { Text = c.Prenom + " " + c.Nom, Value = c.Id.ToString() });
+            }
+            ViewData["Clients"] = listClients;
+            //transformation de la liste des articles en json pour javascript plus tard
+            ViewBag.ArticlesJson = JsonConvert.SerializeObject(_context.Articles);
+            return View(new Facture() { DateFacture = DateOnly.FromDateTime(DateTime.Now) });
+        }
+
+
+
+
 
         [HttpPost]
         public IActionResult Edit(Facture f)
