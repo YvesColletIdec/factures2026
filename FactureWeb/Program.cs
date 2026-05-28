@@ -1,5 +1,6 @@
 using FactureEntities.Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 
 namespace FactureWeb
 {
@@ -12,7 +13,13 @@ namespace FactureWeb
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             //var x = new SqlServerContext();
-            builder.Services.AddDbContextFactory<SqlServerContext>();
+            string cs = "";
+#if DEBUG
+            cs = builder.Configuration.GetConnectionString("dev");
+#else
+            cs = builder.Configuration.GetConnectionString("prd");
+#endif
+            builder.Services.AddDbContextFactory<SqlServerContext>(options => options.UseSqlServer(cs));
 
 
             builder.Services.AddSession();

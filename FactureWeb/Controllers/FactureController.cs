@@ -25,7 +25,7 @@ namespace FactureWeb.Controllers
             return View(liste);
         }
 
-        public bool CreateNewFacture(List<LigneFacture> LignesFacture, DateTime DateFacture, int ClientId, string Numero)
+        public IActionResult CreateNewFacture(List<LigneFacture> LignesFacture, DateTime DateFacture, int ClientId, string Numero)
         {
             Facture facture = new Facture();
             facture.DateFacture = DateOnly.FromDateTime(DateFacture);
@@ -35,7 +35,7 @@ namespace FactureWeb.Controllers
             facture.VendeurId = Convert.ToInt32(User.FindFirst("id")?.Value);
             _context.Add(facture);
             _context.SaveChanges();
-            return true;
+            return View("Liste");
         }
 
         public IActionResult Create()
