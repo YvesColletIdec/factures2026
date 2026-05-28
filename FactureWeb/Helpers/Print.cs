@@ -71,7 +71,7 @@ namespace FactureWeb.Helpers
                     //Fill Data in Rows
                     Paragraph p2 = DataRow.Cells[c].AddParagraph();
                     TextRange TR2 = null;
-                    decimal total = lf.Montant * lf.Quantite;
+                    decimal total = lf.PrixUnitaire * lf.Quantite;
                     switch (c)
                     {
                         case 0:
@@ -87,7 +87,7 @@ namespace FactureWeb.Helpers
                             DataRow.Cells[c].SetCellWidth(60f, CellWidthType.Point);
                             break;
                         case 3:
-                            TR2 = p2.AppendText(lf.Montant.ToString());
+                            TR2 = p2.AppendText(lf.PrixUnitaire.ToString());
                             DataRow.Cells[c].SetCellWidth(80f, CellWidthType.Point);
                             break;
                         case 4:

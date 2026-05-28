@@ -53,6 +53,14 @@ namespace FactureWeb.Controllers
         }
 
 
+        public IActionResult Impression(int id)
+        {
+            Facture f = _context.Factures.Include(x => x.LigneFactures).ThenInclude(x => x.Article).Include(x => x.Client).FirstOrDefault(x => x.Id == id);
+            string physicalPath = Print.CreateDocumentFromTemplateWithFormat(f, @"C:\Users\yvesc\Documents\GitHub\factures2026\facture_template.docx");
+            byte[] pdfBytes = System.IO.File.ReadAllBytes(physicalPath);
+            MemoryStream ms = new MemoryStream(pdfBytes);
+            return new FileStreamResult(ms, "application/pdf");
+        }
 
 
 
