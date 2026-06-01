@@ -8,6 +8,18 @@ namespace FactureWeb.Helpers
 {
     public class Print
     {
+        //sdfasdf
+        /*
+         * fdg
+         * df
+         * dfg
+         * df
+         * df*/
+        /**
+         * @summary elle fait un pdf
+         * returns retourne un chemin
+         * <exception cref="peut lever une eecption"
+         */
         public static string CreateDocumentFromTemplateWithFormat(Facture f, string template)
         {
             Document document = new Document();
