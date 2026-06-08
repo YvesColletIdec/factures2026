@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="FreeSpire.Doc" Version="14.4.0" />
+    <PackageReference Include="IDEC.facture2026" Version="1.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

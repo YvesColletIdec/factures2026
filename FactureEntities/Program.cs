@@ -101,13 +101,13 @@
 //                Console.WriteLine(ex);
 //            }
 //        }
-static void Main(string[] args)
-{
-    //Select();
-    //Insert();
-    //Update(2103, "updateArticle");
-    //ControlInsert();
-    //Delete();
-}
+//static void Main(string[] args)
+//{
+//    //Select();
+//    //Insert();
+//    //Update(2103, "updateArticle");
+//    //ControlInsert();
+//    //Delete();
+//}
 //    }
 //}

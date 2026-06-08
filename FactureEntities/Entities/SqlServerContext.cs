@@ -19,6 +19,8 @@ public partial class SqlServerContext : DbContext
 
     public virtual DbSet<LigneFacture> LigneFactures { get; set; }
 
+    public virtual DbSet<Log> Logs { get; set; }
+
     public virtual DbSet<VFacture> VFactures { get; set; }
 
     public virtual DbSet<Vendeur> Vendeurs { get; set; }
@@ -105,6 +107,30 @@ public partial class SqlServerContext : DbContext
                 .HasForeignKey(d => d.FactureId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("LigneFacture_fk1");
+        });
+
+        modelBuilder.Entity<Log>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Log__3214EC079D19DDED");
+
+            entity.ToTable("Log");
+
+            entity.Property(e => e.Datelog)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("datelog");
+            entity.Property(e => e.Login)
+                .IsRequired()
+                .HasMaxLength(50)
+                .HasColumnName("login");
+            entity.Property(e => e.Message)
+                .IsRequired()
+                .HasMaxLength(2000)
+                .HasColumnName("message");
+            entity.Property(e => e.Typelog)
+                .IsRequired()
+                .HasMaxLength(50)
+                .HasColumnName("typelog");
         });
 
         modelBuilder.Entity<VFacture>(entity =>

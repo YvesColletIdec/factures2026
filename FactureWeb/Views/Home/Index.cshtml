@@ -1,8 +1,78 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model Pwd
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
 
-<div class="text-center">
-    <h1 class="display-4">coucou</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h4 class="mb-0">Changer le mot de passe</h4>
+                </div>
+
+                <div class="card-body">
+                    <form id="changePasswordForm" asp-controller="Home" asp-action="ModifyPassword" method="post">
+
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">
+                                Ancien mot de passe
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="currentPassword"
+                                   asp-for="@Model.OldPassword"
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">
+                                Nouveau mot de passe
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="newPassword"
+                                   asp-for="@Model.NewPassword"
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">
+                                Confirmer le nouveau mot de passe
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="confirmPassword"
+                                   required>
+                        </div>
+                        <span asp-validation-for="NewPassword" class="text-danger"></span><br />
+                        <div id="errorMessage"
+                             class="alert alert-danger d-none"
+                             role="alert">
+                            Les nouveaux mots de passe ne correspondent pas.
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            Modifier le mot de passe
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
+
+<script>
+    document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
+
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const errorMessage = document.getElementById('errorMessage');
+
+        if (newPassword !== confirmPassword) {
+            e.preventDefault();
+            errorMessage.classList.remove('d-none');
+        } else {
+            errorMessage.classList.add('d-none'); 
+        }
+    });
+</script>

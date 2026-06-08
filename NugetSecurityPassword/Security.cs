@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace Helpers
+namespace FactureSecurity
 {
     public class Security
     {

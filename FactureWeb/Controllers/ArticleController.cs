@@ -1,17 +1,15 @@
 ﻿using FactureEntities.Entities;
+using FactureWeb.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Emit;
 
 namespace FactureWeb.Controllers
 {
     
-    public class ArticleController : Controller
+    public class ArticleController : RootController
     {
-        private SqlServerContext _context;
-        public ArticleController(SqlServerContext context) 
-        { 
-            _context = context;
-        }
+        public ArticleController(SqlServerContext context) : base(context) { }
 
         //https://localhost/Article/List
         public IActionResult List()
@@ -45,6 +43,7 @@ namespace FactureWeb.Controllers
             
         }
 
+        
         [Authorize(Roles = "admin, user")]
         [HttpGet]
         public IActionResult Edit(int id)
@@ -66,13 +65,15 @@ namespace FactureWeb.Controllers
             {
                 _context.Articles.Update(a);
                 _context.SaveChanges();
+                //TODO loguer la modif
+                LogInfo($"l'article {a.Id} a été modifié");
                 return RedirectToAction("List");
             }
             else
             {
                 return View(a);
             }
-
+        
         }
     }
 }
