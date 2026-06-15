@@ -13,7 +13,7 @@ public class LoginController : Controller
     {
         _context = context;
     }
-    public IActionResult Login()
+    public async Task<IActionResult> Login()
     {
         if (HttpContext.User.Identity.IsAuthenticated)
             return RedirectToAction("Index", "Home");

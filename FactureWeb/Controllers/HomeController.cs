@@ -44,7 +44,6 @@ namespace FactureWeb.Controllers
             }
             else
             {
-
                 v.MotDePasse = Security.Hash(pwd.NewPassword);
                 _context.Update(v);
                 _context.SaveChanges();
